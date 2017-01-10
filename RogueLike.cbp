@@ -50,7 +50,10 @@
 			<Add library="sfml-system" />
 			<Add directory="SFML-2.4.1/lib" />
 		</Linker>
+		<Unit filename="dependencies.h" />
+		<Unit filename="grid.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="worldgen.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
