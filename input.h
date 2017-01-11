@@ -2,8 +2,7 @@
 
 #include "dependencies.h"
 
-string direction;
-direction="none";
+string direction="none";
 
 if (_kbhit())
 {

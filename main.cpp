@@ -1,4 +1,5 @@
 #include "worldgen.h"
+#include "player.h"
 
 int main()
 {

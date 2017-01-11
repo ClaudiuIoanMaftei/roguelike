@@ -390,8 +390,9 @@
 	<string>
 	<vector>
 
-1484077308 source:e:\programs\roguelike\main.cpp
+1484161607 source:e:\programs\roguelike\main.cpp
 	"worldgen.h"
+	"player.h"
 
 1483883127 e:\programs\roguelike\sfml-2.4.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -784,16 +785,17 @@
 1484073593 source:e:\programs\roguelike\grid.cpp
 	"grid.h"
 
-1484078607 e:\programs\roguelike\grid.h
+1484161089 e:\programs\roguelike\grid.h
 	"dependencies.h"
 
-1484076695 e:\programs\roguelike\dependencies.h
+1484160528 e:\programs\roguelike\dependencies.h
 	<iostream>
 	<cstring>
 	<fstream>
 	<stdlib.h>
+	<conio.h>
 
-1484079648 e:\programs\roguelike\worldgen.h
+1484161608 e:\programs\roguelike\worldgen.h
 	"grid.h"
 
 1484082137 source:c:\users\relu\documents\github\roguelike\main.cpp
@@ -810,4 +812,7 @@
 	<cstring>
 	<fstream>
 	<stdlib.h>
+
+1484161595 e:\programs\roguelike\player.h
+	"grid.h"
 

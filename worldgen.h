@@ -1,5 +1,9 @@
 ///Worldgen Functions
+
+#ifndef included_grid
+#define included_grid
 #include "grid.h"
+#endif
 
 void worldAntChange(int x, int y, int steps, int chance)
 {

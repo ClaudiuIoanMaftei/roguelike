@@ -52,7 +52,6 @@
 		</Linker>
 		<Unit filename="dependencies.h" />
 		<Unit filename="grid.h" />
-		<Unit filename="input.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="player.h" />
 		<Unit filename="worldgen.h" />

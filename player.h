@@ -1,18 +1,59 @@
 ///PlayerFunction
 
-#include "input.h"
+#ifndef included_grid
+#define included_grid
 #include "grid.h"
+#endif
+
+#define NONE 0
+#define UP 1
+#define LEFT 2
+#define RIGHT 3
+#define DOWN 4
 
 struct player
 {
     int health;
     int x;
     int y;
+    int directionMove;
+    int directionFace;
+
+    void input()
+    {
+        directionMove=NONE;
+
+        if (_kbhit())
+        {
+            char key = _getch();
+            if (key == 'w')
+            {
+                directionMove=UP;
+                directionFace=UP;
+            }
+            if (key == 's')
+            {
+                directionMove=DOWN;
+                directionFace=DOWN;
+            }
+            if (key == 'd')
+            {
+                directionMove=RIGHT;
+                directionFace=RIGHT;
+            }
+            if (key == 'a')
+            {
+                directionMove=LEFT;
+                directionFace=LEFT;
+            }
+        }
+    }
+
     void movement ()
     {
-        switch (direction)
+        switch (directionMove)
         {
-            case "up":
+            case UP:
             {
                 if (!table.gridVerify("wall",x,y-1))
                 {
@@ -22,7 +63,7 @@ struct player
                 }
                 break;
             }
-            case "down":
+            case DOWN:
             {
                 if (!table.gridVerify("wall",x,y+1))
                 {
@@ -32,7 +73,7 @@ struct player
                 }
                 break;
             }
-            case "right":
+            case RIGHT:
             {
                 if (!table.gridVerify("wall",x+1,y))
                 {
@@ -42,7 +83,7 @@ struct player
                 }
                 break;
             }
-            case "left":
+            case LEFT:
             {
                 if (!table.gridVerify("wall",x-1,y))
                 {
