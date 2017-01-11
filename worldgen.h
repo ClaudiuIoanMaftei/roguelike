@@ -5,6 +5,11 @@
 #include "grid.h"
 #endif
 
+#ifndef included_pathfinding
+#define included_pathfinding
+#include "pathfinding.h"
+#endif
+
 void worldAntChange(int x, int y, int steps, int chance)
 {
     string tile="floor";
@@ -52,6 +57,8 @@ void worldAntChange(int x, int y, int steps, int chance)
 
 void worldGenerate()
 {
+    srand(time(NULL));
+
     string tile;
     tile="wall";
     table.gridClear(tile);
@@ -59,8 +66,6 @@ void worldGenerate()
 
     for (int repeats=0; repeats<table_size/5; repeats++)
     {
-        cout<<repeats<<"/"<<table_size/5<<endl;
-
         int room_x=rand()%table.width;
         int room_y=rand()%table.height;
         int room_size_min=1+table_size/15;
@@ -68,7 +73,6 @@ void worldGenerate()
         int room_width=rand()%room_size_min + table_size/10;
 
         tile="floor";
-        cout<<room_x<<" "<<room_y<<" "<<room_height<<" "<<room_width<<endl;
         table.gridFill(tile, room_x, room_y, room_x+room_width, room_y+room_height);
 
         worldAntChange(room_x+room_width/2, room_y+room_width/2, table_size*4, 1);
@@ -76,5 +80,14 @@ void worldGenerate()
     }
 
     tile="wall";
-    table.gridRectangle(tile, 0, 0, table.width, table.height);
+    table.gridRectangle(tile, 0, 0, table.width-1, table.height-1);
+
+    do
+    {
+        table.entryX=rand()%table.width;
+        table.entryY=rand()%table.height;
+        table.exitX=rand()%table.width;
+        table.exitY=rand()%table.height;
+    }
+    while(!pathExists(table.entryX, table.entryY, table.exitX, table.exitY));
 }

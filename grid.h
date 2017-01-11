@@ -10,6 +10,10 @@ struct table
     string grid[MAX_HEIGHT][MAX_WIDTH];
     int height;
     int width;
+    int entryX;
+    int entryY;
+    int exitX;
+    int exitY;
 
     void gridClear(string tile)
     {
@@ -67,6 +71,10 @@ struct table
         ofstream save ("grid.txt");
         save<<height<<endl;
         save<<width<<endl;
+        save<<entryX<<endl;
+        save<<entryY<<endl;
+        save<<exitX<<endl;
+        save<<exitY<<endl;
 
         for (int index_y=0; index_y<height; index_y++)
         {
@@ -83,6 +91,10 @@ struct table
         ifstream save ("grid.txt");
         save>>height;
         save>>width;
+        save>>entryX;
+        save>>entryY;
+        save>>exitX;
+        save>>exitY;
 
         for (int index_y=0; index_y<height; index_y++)
         {

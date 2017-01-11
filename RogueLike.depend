@@ -390,7 +390,7 @@
 	<string>
 	<vector>
 
-1484161607 source:e:\programs\roguelike\main.cpp
+1484174839 source:e:\programs\roguelike\main.cpp
 	"worldgen.h"
 	"player.h"
 
@@ -785,18 +785,22 @@
 1484073593 source:e:\programs\roguelike\grid.cpp
 	"grid.h"
 
-1484161089 e:\programs\roguelike\grid.h
+1484173175 e:\programs\roguelike\grid.h
 	"dependencies.h"
 
-1484160528 e:\programs\roguelike\dependencies.h
+1484173715 e:\programs\roguelike\dependencies.h
 	<iostream>
 	<cstring>
 	<fstream>
 	<stdlib.h>
 	<conio.h>
+	<list>
+	<algorithm>
+	<time.h>
 
-1484161608 e:\programs\roguelike\worldgen.h
+1484175100 e:\programs\roguelike\worldgen.h
 	"grid.h"
+	"pathfinding.h"
 
 1484082137 source:c:\users\relu\documents\github\roguelike\main.cpp
 	"worldgen.h"
@@ -813,6 +817,9 @@
 	<fstream>
 	<stdlib.h>
 
-1484161595 e:\programs\roguelike\player.h
+1484163900 e:\programs\roguelike\player.h
+	"grid.h"
+
+1484175062 e:\programs\roguelike\pathfinding.h
 	"grid.h"
 
