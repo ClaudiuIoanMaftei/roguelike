@@ -1,5 +1,6 @@
 ///Include Dependencies
 
+#include<SFML/Graphics.hpp>
 #include <iostream>
 #include <cstring>
 #include <fstream>
