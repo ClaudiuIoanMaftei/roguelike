@@ -20,11 +20,13 @@
 
 struct player
 {
-    int health=1;
+    int health=5;
     int x;
     int y;
     int directionMove;
-    int directionFace;
+    int directionFace=DOWN;
+    int difficulty=0;
+
     void movement ()
     {
         switch (directionMove)
@@ -71,6 +73,30 @@ struct player
             }
 
         }
+    }
+
+    void playerSave()
+    {
+        ofstream save ("player.txt");
+        save<<health<<endl;
+        save<<x<<endl;
+        save<<y<<endl;
+        save<<directionFace<<endl;
+        save<<difficulty<<endl;
+
+        save.close();
+    }
+
+    void playerLoad()
+    {
+        ifstream save ("grid.txt");
+        save>>health;
+        save>>x;
+        save>>y;
+        save>>directionFace;
+        save>>difficulty;
+
+        save.close();
     }
 }player;
 

@@ -16,6 +16,7 @@ int main()
     table.height=60;
     worldGenerate();
     table.gridSave();
+    player.playerSave();
 
     textureLoad();
 
@@ -61,6 +62,16 @@ int main()
                 player.movement();
         //Draw Map
         drawMap();
+
+        //Finished Level
+        if (player.x==table.exitX and player.y==table.exitY)
+        {
+            player.difficulty++;
+            worldGenerate();
+            table.gridSave();
+            player.playerSave();
+        }
+
     }
 
     table.gridSave();
