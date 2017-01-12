@@ -13,7 +13,7 @@
 
 struct player
 {
-    int health=1;
+    int health;
     int x;
     int y;
     int directionMove;
@@ -96,5 +96,5 @@ struct player
 
         }
     }
-}player;
+};
 
