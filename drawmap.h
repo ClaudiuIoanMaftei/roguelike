@@ -10,11 +10,15 @@
 #include "player.h"
 #endif
 
-#define TILE_SIZE 64
-#define WINDOW_HEIGHT 768
-#define WINDOW_WIDTH 768
+#ifndef included_window
+#define included_window
+#include "window.h"
+#endif
 
-sf::RenderWindow Window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "RogueLike");
+#define TILE_SIZE 64
+
+
+
 sf::Sprite mapTile;
 
 sf::Texture tileFloor;

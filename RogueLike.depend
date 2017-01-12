@@ -826,27 +826,28 @@
 1484175062 e:\programs\roguelike\pathfinding.h
 	"grid.h"
 
-1484240920 source:e:\git gud projects\roguelike\main.cpp
+1484260470 source:e:\git gud projects\roguelike\main.cpp
 	"worldgen.h"
 	"player.h"
 	"drawmap.h"
 
-1484237388 e:\git gud projects\roguelike\worldgen.h
+1484257537 e:\git gud projects\roguelike\worldgen.h
 	"grid.h"
+	"player.h"
 	"pathfinding.h"
 
 1484237388 e:\git gud projects\roguelike\grid.h
 	"dependencies.h"
 
-1484240808 e:\git gud projects\roguelike\dependencies.h
+1484257537 e:\git gud projects\roguelike\dependencies.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<cstring>
 	<fstream>
 	<stdlib.h>
 	<conio.h>
-	<list>
 	<algorithm>
+	<list>
 	<time.h>
 
 1483653642 e:\git gud projects\roguelike\sfml-2.4.1\include\sfml\graphics.hpp
@@ -1240,11 +1241,18 @@
 1484237388 e:\git gud projects\roguelike\pathfinding.h
 	"grid.h"
 
-1484163683 e:\git gud projects\roguelike\player.h
-	"grid.h"
+1484260526 e:\git gud projects\roguelike\player.h
+	"window.h"
 	"grid.h"
 
 1484259037 e:\programs\roguelike\drawmap.h
 	"grid.h"
 	"player.h"
+
+1484260054 e:\git gud projects\roguelike\drawmap.h
+	"grid.h"
+	"player.h"
+	"window.h"
+
+1484260046 e:\git gud projects\roguelike\window.h
 

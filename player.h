@@ -1,9 +1,16 @@
 ///PlayerFunction
 
+#ifndef included_window
+#define included_window
+#include "window.h"
+#endif
+
 #ifndef included_grid
 #define included_grid
 #include "grid.h"
 #endif
+
+
 
 #define NONE 0
 #define UP 1
@@ -18,38 +25,6 @@ struct player
     int y;
     int directionMove;
     int directionFace;
-
-    void input()
-    {
-        directionMove=NONE;
-
-        if (_kbhit())
-        {
-            char key = _getch();
-            if (key == 'w')
-            {
-                directionMove=UP;
-                directionFace=UP;
-            }
-            if (key == 's')
-            {
-                directionMove=DOWN;
-                directionFace=DOWN;
-            }
-            if (key == 'd')
-            {
-                directionMove=RIGHT;
-                directionFace=RIGHT;
-            }
-            if (key == 'a')
-            {
-                directionMove=LEFT;
-                directionFace=LEFT;
-            }
-        }
-        cout<<directionMove<<endl;
-    }
-
     void movement ()
     {
         switch (directionMove)
