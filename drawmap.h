@@ -1,31 +1,54 @@
-/// drawing a map
+/// Drawing Functions
 
 #ifndef included_grid
 #define included_grid
 #include "grid.h"
 #endif
 
-void drawMap()
+#ifndef included_player
+#define included_player
+#include "player.h"
+#endif
+
+#define TILE_SIZE 64
+#define WINDOW_HEIGHT 768
+#define WINDOW_WIDTH 768
+
+sf::RenderWindow Window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT , 32), "RogueLike");
+sf::Texture tileTexture;
+sf::Sprite mapTile;
+
+void drawTile(string tile, int x, int y)
 {
-    std::ifstream openfile("grid.txt");
-    std::ifstream openfiletexture("texture.txt");
-
-    sf::Texture tileTexture;
-    sf::Sprite mapTile;
-
-
-    if (openfiletexture.is_open())
+    if (tile=="none")
     {
-        std::string tileLocation;
-        openfile >> tileLocation;
-        tileTexture.loadFromFile(tileLocation);
-        mapTile.setTexture(tileTexture);
+        return;
     }
 
-    sf::RenderWindow Window(sf::VideoMode(960, 960, 32), "RogueLike");
+    tileTexture.loadFromFile("sprites\\sprite_"+tile+".png");
+    mapTile.setTexture(tileTexture);
+    mapTile.setPosition(x*TILE_SIZE, y*TILE_SIZE);
+    Window.draw(mapTile);
+}
+
+void drawPlayer(int x, int y)
+{
+    tileTexture.loadFromFile("sprites\\sprite_player.png");
+    mapTile.setTexture(tileTexture, true);
+    mapTile.setPosition(x*TILE_SIZE-48, y*TILE_SIZE-64);
+    Window.draw(mapTile);
+}
+
+void drawMap()
+{
+    int viewSizeWidth=WINDOW_WIDTH/TILE_SIZE;
+    int viewSizeHeight=WINDOW_HEIGHT/TILE_SIZE;
+    int viewOffsetX=max(0, min(WINDOW_WIDTH-viewSizeWidth, player.x-viewSizeWidth/2));
+    int viewOffsetY=max(0, min(WINDOW_HEIGHT-viewSizeHeight,player.y-viewSizeHeight/2));
 
     while(Window.isOpen())
     {
+
         sf::Event Event;
         while(Window.pollEvent(Event))
         {
@@ -37,28 +60,41 @@ void drawMap()
             }
         }
 
-        Window.clear();
+        Window.clear(sf::Color(0, 0, 0));
 
         table.gridLoad();
 
-        for (int index_y=0; index_y<table.height; index_y++)
-        {
-            for (int index_x=0; index_x<table.width; index_x++)
-                if (table.grid[index_x][index_y]=="wall")
+        //Draw Grid
+        int viewPlayerX;
+        int viewPlayerY;
+
+        for (int index_y=0; index_y<viewSizeHeight; index_y++)
+            for (int index_x=0; index_x<viewSizeWidth; index_x++)
+                if(table.gridVerify("player",index_x+viewOffsetX,index_y+viewOffsetY))
                 {
-                    cout << table.grid[index_x][index_y] << ' ';
-                    mapTile.setPosition(index_x*32, index_y*32);
-                    mapTile.setTextureRect(sf::IntRect(0 * 32, 0 * 32, 32, 32));
-                    Window.draw(mapTile);
+                    viewPlayerX=index_x;
+                    viewPlayerY=index_y;
+                    drawTile("floor",index_x,index_y);
                 }
-                else if (table.grid[index_x][index_y]=="floor")
-                    {
-                        cout << table.grid[index_x][index_y] << ' ';
-                        mapTile.setPosition(index_x*32, index_y*32);
-                        mapTile.setTextureRect(sf::IntRect(0 * 32, 1 * 32, 32, 32));
-                        Window.draw(mapTile);
-                    }
-        }
+                else if (table.gridVerify("floor",index_x+viewOffsetX,index_y+viewOffsetY))
+                {
+                    drawTile("floor",index_x,index_y);
+                    if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                        drawTile("wall_up_half",index_x,index_y);
+                }
+                else if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY))
+                {
+                    if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                        drawTile("wall_up",index_x,index_y);
+                    else
+                        drawTile("wall",index_x,index_y);
+                }
+
+
+        //Draw Player
+
+        drawPlayer(viewPlayerX, viewPlayerY);
+
         Window.display();
     }
 }

@@ -1,5 +1,10 @@
 #include "worldgen.h"
+
+#ifndef included_player
+#define included_player
 #include "player.h"
+#endif
+
 #include "drawmap.h"
 
 int main()
@@ -7,6 +12,7 @@ int main()
     table.width=60;
     table.height=60;
     worldGenerate();
+    table.gridSave();
     /*
     for (int index_y=0; index_y<table.height; index_y++)
     {
