@@ -52,6 +52,9 @@ int main()
                     player.directionMove=DOWN;
                     player.directionFace=DOWN;
                     break;
+                case sf::Keyboard::Escape:
+                    Window.close();
+                    break;
                 }
 
 
