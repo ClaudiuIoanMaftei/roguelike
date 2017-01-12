@@ -14,9 +14,23 @@
 #define WINDOW_HEIGHT 768
 #define WINDOW_WIDTH 768
 
-sf::RenderWindow Window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT , 32), "RogueLike");
-sf::Texture tileTexture;
+sf::RenderWindow Window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32), "RogueLike");
 sf::Sprite mapTile;
+
+sf::Texture tileFloor;
+sf::Texture tileWall;
+sf::Texture tileWallUp;
+sf::Texture tileWallUpHalf;
+sf::Texture tilePlayer;
+
+void textureLoad()
+{
+    tileFloor.loadFromFile("sprites\\sprite_floor.png");
+    tileWall.loadFromFile("sprites\\sprite_wall.png");
+    tileWallUp.loadFromFile("sprites\\sprite_wall_up.png");
+    tileWallUpHalf.loadFromFile("sprites\\sprite_wall_up_half.png");
+    tilePlayer.loadFromFile("sprites\\sprite_player.png");
+}
 
 void drawTile(string tile, int x, int y)
 {
@@ -24,18 +38,31 @@ void drawTile(string tile, int x, int y)
     {
         return;
     }
+    else if (tile=="floor")
+    {
+        mapTile.setTexture(tileFloor);
+    }
+    else if (tile=="wall")
+    {
+        mapTile.setTexture(tileWall);
+    }
+    else if (tile=="wall_up")
+    {
+        mapTile.setTexture(tileWallUp);
+    }
+    else if (tile=="wall_up_half")
+    {
+        mapTile.setTexture(tileWallUpHalf);
+    }
 
-    tileTexture.loadFromFile("sprites\\sprite_"+tile+".png");
-    mapTile.setTexture(tileTexture);
     mapTile.setPosition(x*TILE_SIZE, y*TILE_SIZE);
     Window.draw(mapTile);
 }
 
 void drawPlayer(int x, int y)
 {
-    tileTexture.loadFromFile("sprites\\sprite_player.png");
-    mapTile.setTexture(tileTexture, true);
-    mapTile.setPosition(x*TILE_SIZE-48, y*TILE_SIZE-64);
+    mapTile.setTexture(tilePlayer, true);
+    mapTile.setPosition(x*TILE_SIZE-32, y*TILE_SIZE-64);
     Window.draw(mapTile);
 }
 
@@ -46,55 +73,40 @@ void drawMap()
     int viewOffsetX=max(0, min(WINDOW_WIDTH-viewSizeWidth, player.x-viewSizeWidth/2));
     int viewOffsetY=max(0, min(WINDOW_HEIGHT-viewSizeHeight,player.y-viewSizeHeight/2));
 
-    while(Window.isOpen())
-    {
+    Window.clear(sf::Color(0, 0, 0));
 
-        sf::Event Event;
-        while(Window.pollEvent(Event))
-        {
-            switch (Event.type)
+    for (int index_y=0; index_y<viewSizeHeight; index_y++)
+        for (int index_x=0; index_x<viewSizeWidth; index_x++)
+            if(table.gridVerify("player",index_x+viewOffsetX,index_y+viewOffsetY))
             {
-            case sf::Event::Closed:
-                Window.close();
-                break;
+                drawTile("floor",index_x,index_y);
+                drawPlayer(index_x,index_y);
+                if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                    drawTile("wall_up_half",index_x,index_y);
             }
-        }
+            else if (table.gridVerify("floor",index_x+viewOffsetX,index_y+viewOffsetY))
+            {
+                drawTile("floor",index_x,index_y);
+                if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                    drawTile("wall_up_half",index_x,index_y);
+            }
+            else if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY))
+            {
+                if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                    drawTile("wall_up",index_x,index_y);
+                else
+                    drawTile("wall",index_x,index_y);
+            }
+            else
+            {
+                if (index_y+viewOffsetY>=table.height)
+                    drawTile("wall",index_x,index_y);
+                else
+                    drawTile("wall_up",index_x,index_y);
 
-        Window.clear(sf::Color(0, 0, 0));
-
-        table.gridLoad();
-
-        //Draw Grid
-        int viewPlayerX;
-        int viewPlayerY;
-
-        for (int index_y=0; index_y<viewSizeHeight; index_y++)
-            for (int index_x=0; index_x<viewSizeWidth; index_x++)
-                if(table.gridVerify("player",index_x+viewOffsetX,index_y+viewOffsetY))
-                {
-                    viewPlayerX=index_x;
-                    viewPlayerY=index_y;
-                    drawTile("floor",index_x,index_y);
-                }
-                else if (table.gridVerify("floor",index_x+viewOffsetX,index_y+viewOffsetY))
-                {
-                    drawTile("floor",index_x,index_y);
-                    if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
-                        drawTile("wall_up_half",index_x,index_y);
-                }
-                else if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY))
-                {
-                    if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
-                        drawTile("wall_up",index_x,index_y);
-                    else
-                        drawTile("wall",index_x,index_y);
-                }
+            }
 
 
-        //Draw Player
-
-        drawPlayer(viewPlayerX, viewPlayerY);
-
-        Window.display();
-    }
+    Window.display();
 }
+

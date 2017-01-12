@@ -47,6 +47,7 @@ struct player
                 directionFace=LEFT;
             }
         }
+        cout<<directionMove<<endl;
     }
 
     void movement ()

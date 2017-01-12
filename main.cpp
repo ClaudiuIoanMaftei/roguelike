@@ -13,20 +13,32 @@ int main()
     table.height=60;
     worldGenerate();
     table.gridSave();
-    /*
-    for (int index_y=0; index_y<table.height; index_y++)
+
+    textureLoad();
+
+    while(Window.isOpen())
     {
-        for (int index_x=0; index_x<table.width; index_x++)
-            if ((index_x==table.entryX) and (index_y==table.entryY)
-                or(index_x==table.exitX) and (index_y==table.exitY))
-               cout<<" "<<" ";
-            else if (table.grid[index_y][index_x]=="wall")
-                cout<<1<<" ";
-            else
-                cout<<0<<" ";
-        cout<<endl;
+        //Able to close window
+        sf::Event Event;
+        while(Window.pollEvent(Event))
+        {
+            switch (Event.type)
+            {
+            case sf::Event::Closed:
+                Window.close();
+                break;
+            }
+        }
+
+        //Player Move
+        player.input();
+        if (player.directionMove!=NONE)
+            player.movement();
+
+        //Draw Map
+        drawMap();
     }
-    */
-    drawMap();
+
+    table.gridSave();
     return 0;
 }
