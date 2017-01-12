@@ -6,8 +6,8 @@
 #include <fstream>
 #include <stdlib.h>
 #include <conio.h>
-#include <list>
 #include <algorithm>
+#include <list>
 #include <time.h>
 
 using namespace std;

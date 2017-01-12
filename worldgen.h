@@ -5,6 +5,11 @@
 #include "grid.h"
 #endif
 
+#ifndef included_player
+#define included_player
+#include "player.h"
+#endif
+
 #ifndef included_pathfinding
 #define included_pathfinding
 #include "pathfinding.h"
@@ -90,4 +95,8 @@ void worldGenerate()
         table.exitY=rand()%table.height;
     }
     while(!pathExists(table.entryX, table.entryY, table.exitX, table.exitY));
+
+    player.x=table.entryX;
+    player.y=table.entryY;
+    table.gridPlace("player",player.x, player.y);
 }
