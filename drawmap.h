@@ -37,6 +37,8 @@ sf::Texture tileSkeletonDown;
 sf::Texture tileSkeletonRight;
 sf::Texture tileSkeletonLeft;
 sf::Texture tileExit;
+sf::Texture tileHeart;
+sf::Texture tileTrap;
 
 void textureLoad()
 {
@@ -56,6 +58,8 @@ void textureLoad()
     tileSkeletonRight.loadFromFile("sprites\\sprite_skeleton_right.png");
 
     tileExit.loadFromFile("sprites\\sprite_exit.png");
+    tileHeart.loadFromFile("sprites\\spr_hearth.png");
+    tileTrap.loadFromFile("sprites\\spr_trap.png");
 }
 
 void drawTile(string tile, int x, int y)
@@ -66,27 +70,40 @@ void drawTile(string tile, int x, int y)
     }
     else if (tile=="floor")
     {
-        mapTile.setTexture(tileFloor);
+        mapTile.setTexture(tileFloor,true);
     }
     else if (tile=="wall")
     {
-        mapTile.setTexture(tileWall);
+        mapTile.setTexture(tileWall,true);
     }
     else if (tile=="wall_up")
     {
-        mapTile.setTexture(tileWallUp);
+        mapTile.setTexture(tileWallUp,true);
     }
     else if (tile=="wall_up_half")
     {
-        mapTile.setTexture(tileWallUpHalf);
+        mapTile.setTexture(tileWallUpHalf,true);
     }
     else if (tile=="exit")
     {
-        mapTile.setTexture(tileExit);
+        mapTile.setTexture(tileExit,true);
     }
-
+    else if (tile=="trap")
+    {
+        mapTile.setTexture(tileTrap,true);
+    }
     mapTile.setPosition(x*TILE_SIZE, y*TILE_SIZE);
     Window.draw(mapTile);
+}
+
+void drawHearts()
+{
+    mapTile.setTexture(tileHeart,true);
+    for(int index=0;index<player.health;index++)
+    {
+        mapTile.setPosition(index*34+32, 32);
+        Window.draw(mapTile);
+    }
 }
 
 void drawPlayer(int x, int y)
@@ -168,6 +185,12 @@ void drawMap()
                 if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
                     drawTile("wall_up_half",index_x,index_y);
             }
+            else if (table.gridVerify("trap",index_x+viewOffsetX,index_y+viewOffsetY))
+            {
+                drawTile("trap",index_x,index_y);
+                if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                    drawTile("wall_up_half",index_x,index_y);
+            }
             else if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY))
             {
                 if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
@@ -183,6 +206,8 @@ void drawMap()
                     drawTile("wall_up",index_x,index_y);
             }
 
+    //Draw Health
+    drawHearts();
 
     Window.display();
 }

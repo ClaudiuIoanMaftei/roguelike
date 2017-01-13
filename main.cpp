@@ -15,18 +15,24 @@ int main()
     //Initialize Level
     table.width=60;
     table.height=60;
-    worldGenerate();
-    table.gridSave();
-    player.playerSave();
+    ifstream file("grid.txt");
+
+    if (file.good())
+    {
+        file.close();
+        table.gridLoad();
+        player.playerLoad();
+        enemyLoad();
+    }
+    else
+    {
+        worldGenerate();
+        table.gridSave();
+        player.playerSave();
+        enemySave();
+    }
 
     textureLoad();
-
-    point* points;
-    points=NULL;
-    points= pathFind(player.x, player.y,table.exitX,table.exitY);
-    pointShow(points);
-
-
 
     //Main Action
     while(Window.isOpen())
@@ -39,6 +45,8 @@ int main()
             switch (Event.type)
             {
             case sf::Event::Closed:
+                table.gridSave();
+                player.playerSave();
                 Window.close();
                 break;
             //Player Move
@@ -62,6 +70,9 @@ int main()
                     player.directionFace=DOWN;
                     break;
                 case sf::Keyboard::Escape:
+                    table.gridSave();
+                    player.playerSave();
+                    enemySave();
                     Window.close();
                     break;
                 }
@@ -71,7 +82,7 @@ int main()
         }
         //Move
         if (player.directionMove!=NONE)
-                player.movement();
+            player.movement();
         //Draw Map
         drawMap();
 
@@ -82,10 +93,20 @@ int main()
             worldGenerate();
             table.gridSave();
             player.playerSave();
+            enemySave();
+        }
+
+        //DIE
+        if (player.health<=0)
+        {
+            remove("grid.txt");
+            remove("player.txt");
+            remove("enemy.txt");
+            Window.close();
         }
 
     }
 
-    table.gridSave();
+
     return 0;
 }

@@ -37,6 +37,8 @@ struct player
                 {
                     table.gridPlace("floor",x,y);
                     y=y-1;
+                    if (table.gridVerify("trap",x,y))
+                        health--;
                     table.gridPlace("player",x,y);
                 }
                 break;
@@ -47,6 +49,8 @@ struct player
                 {
                     table.gridPlace("floor",x,y);
                     y=y+1;
+                    if (table.gridVerify("trap",x,y))
+                        health--;
                     table.gridPlace("player",x,y);
                 }
                 break;
@@ -57,6 +61,8 @@ struct player
                 {
                     table.gridPlace("floor",x,y);
                     x=x+1;
+                    if (table.gridVerify("trap",x,y))
+                        health--;
                     table.gridPlace("player",x,y);
                 }
                 break;
@@ -67,6 +73,8 @@ struct player
                 {
                     table.gridPlace("floor",x,y);
                     x=x-1;
+                    if (table.gridVerify("trap",x,y))
+                        health--;
                     table.gridPlace("player",x,y);
                 }
                 break;
@@ -89,7 +97,7 @@ struct player
 
     void playerLoad()
     {
-        ifstream save ("grid.txt");
+        ifstream save ("player.txt");
         save>>health;
         save>>x;
         save>>y;

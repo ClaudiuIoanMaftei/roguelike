@@ -109,7 +109,7 @@ void worldGenerate()
 
     //Create Enemies
 
-    for(int index=0; index<7; index++)
+    for(int index=0; index<7+player.difficulty/3; index++)
     {
         int enemyX;
         int enemyY;
@@ -121,5 +121,19 @@ void worldGenerate()
 
         enemyAdd(enemyX ,enemyY, 0, &enemies);
         table.gridPlace("enemy",enemyX, enemyY);
+    }
+
+    //Create Traps
+    for(int index=0; index<player.difficulty/2+4+player.difficulty*player.difficulty/20; index++)
+    {
+        int trapX;
+        int trapY;
+        do
+        {
+            trapX=rand()%table.width;
+            trapY=rand()%table.height;
+        }while(!table.gridVerify("floor",trapX,trapY));
+
+        table.gridPlace("trap",trapX, trapY);
     }
 }

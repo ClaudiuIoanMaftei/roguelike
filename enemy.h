@@ -100,4 +100,58 @@ int enemySearchFace(enemy *first ,int x, int y)
     return NONE;
 }
 
+void enemySave()
+{
+        ofstream save ("enemy.txt");
+
+        if (enemies==NULL)
+            return;
+
+        enemy *target;
+        target=enemies;
+
+        save<<target->aggroRange;
+        save<<target->behaviour;
+        save<<target->directionFace;
+        save<<target->x;
+        save<<target->y;
+
+        while(target->next!=NULL)
+        {
+            target=target->next;
+            save<<target->aggroRange;
+            save<<target->behaviour;
+            save<<target->directionFace;
+            save<<target->x;
+            save<<target->y;
+        }
+
+        save.close();
+}
+
+void enemyLoad()
+{
+        ifstream save ("enemy.txt");
+
+        do
+        {
+            int aggroRange;
+            int behaviour;
+            int directionFace;
+            int x;
+            int y;
+
+            save>>aggroRange;
+            save>>behaviour;
+            save>>directionFace;
+            save>>x;
+            save>>y;
+
+            enemyAdd(x,y,aggroRange,&enemies);
+            table.gridPlace("enemy",x,y);
+        }
+        while(!save.eof());
+
+        save.close();
+}
 

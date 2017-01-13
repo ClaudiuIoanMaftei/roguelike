@@ -9,5 +9,7 @@
 #include <algorithm>
 #include <list>
 #include <time.h>
+#include <cstdio>
+#include <assert.h>
 
 using namespace std;
