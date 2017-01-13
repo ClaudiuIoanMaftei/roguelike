@@ -10,8 +10,6 @@
 #include "grid.h"
 #endif
 
-
-
 #define NONE 0
 #define UP 1
 #define LEFT 2
@@ -59,6 +57,7 @@ struct player
             {
                 if (!table.gridVerify("wall",x+1,y))
                 {
+
                     table.gridPlace("floor",x,y);
                     x=x+1;
                     if (table.gridVerify("trap",x,y))
@@ -71,6 +70,7 @@ struct player
             {
                 if (!table.gridVerify("wall",x-1,y))
                 {
+
                     table.gridPlace("floor",x,y);
                     x=x-1;
                     if (table.gridVerify("trap",x,y))

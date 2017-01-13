@@ -109,7 +109,7 @@ void worldGenerate()
 
     //Create Enemies
 
-    for(int index=0; index<7+player.difficulty/3; index++)
+    for(int index=0; index<1+player.difficulty/3; index++)
     {
         int enemyX;
         int enemyY;

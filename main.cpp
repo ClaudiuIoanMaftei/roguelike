@@ -82,7 +82,17 @@ int main()
         }
         //Move
         if (player.directionMove!=NONE)
+        {
             player.movement();
+            enemy* target;
+            target=enemies;
+            while(target!=NULL)
+            {
+                enemyMove(target);
+                target=target->next;
+            }
+        }
+
         //Draw Map
         drawMap();
 
