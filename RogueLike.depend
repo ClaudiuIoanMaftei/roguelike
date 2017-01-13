@@ -390,7 +390,7 @@
 	<string>
 	<vector>
 
-1484261520 source:e:\programs\roguelike\main.cpp
+1484332125 source:e:\programs\roguelike\main.cpp
 	"worldgen.h"
 	"player.h"
 	"drawmap.h"
@@ -800,10 +800,11 @@
 	<list>
 	<time.h>
 
-1484256723 e:\programs\roguelike\worldgen.h
+1484328198 e:\programs\roguelike\worldgen.h
 	"grid.h"
 	"player.h"
 	"pathfinding.h"
+	"enemy.h"
 
 1484082137 source:c:\users\relu\documents\github\roguelike\main.cpp
 	"worldgen.h"
@@ -820,11 +821,11 @@
 	<fstream>
 	<stdlib.h>
 
-1484262250 e:\programs\roguelike\player.h
+1484262843 e:\programs\roguelike\player.h
 	"window.h"
 	"grid.h"
 
-1484175062 e:\programs\roguelike\pathfinding.h
+1484338550 e:\programs\roguelike\pathfinding.h
 	"grid.h"
 
 1484263448 source:e:\git gud projects\roguelike\main.cpp
@@ -1246,10 +1247,11 @@
 	"window.h"
 	"grid.h"
 
-1484262225 e:\programs\roguelike\drawmap.h
+1484328147 e:\programs\roguelike\drawmap.h
 	"grid.h"
 	"player.h"
 	"window.h"
+	"enemy.h"
 
 1484263448 e:\git gud projects\roguelike\drawmap.h
 	"grid.h"
@@ -1689,6 +1691,10 @@
 	"enemy.h"
 
 1484314288 c:\coduri c++\roguelike\enemy.h
+	"dependencies.h"
+	"pathfinding.h"
+
+1484326900 e:\programs\roguelike\enemy.h
 	"dependencies.h"
 	"pathfinding.h"
 

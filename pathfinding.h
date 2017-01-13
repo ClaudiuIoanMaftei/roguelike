@@ -78,6 +78,64 @@ bool pointSearch(int x,int y, point *first)
     return false;
 }
 
+void pointDeleteLast(point *first)
+{
+    if(first!=NULL)
+    {
+        point *target;
+        target=first;
+
+        while(target->next->next!=NULL)
+            target=target->next;
+        delete(target->next);
+        target->next=NULL;
+    }
+}
+
+void pointDelete(point *first, int x, int y)
+{
+    if(first!=NULL)
+    {
+        point *prev;
+        prev=first;
+        point *target;
+        target=first->next;
+
+        if (prev->x==x and prev->y==y)
+        {
+            delete(prev);
+            if (target!=NULL)
+                *(first)=*target;
+            else
+                first=NULL;
+            return;
+        }
+
+        while(target!=NULL)
+        {
+            if (target->x==x and target->y==y)
+            {
+                prev->next=target->next;
+                delete(target);
+                return;
+            }
+            target=target->next;
+            prev=prev->next;
+        }
+    }
+}
+
+void pointShow(point *first)
+{
+    point *target;
+    target=first;
+    while(target!=NULL)
+    {
+        cout<<target->x<<" "<<target->y<<endl;
+        target=target->next;
+    }
+}
+
 bool pathExistsSearch(point *points, int entryX, int entryY, int exitX, int exitY)
 {
     if (table.gridVerify("wall",entryX,entryY))
@@ -112,4 +170,82 @@ bool pathExists(int entryX, int entryY, int exitX, int exitY)
 
     return result;
 }
+/*   ~~Si Dumnezeu in prima zi a facut lumina, da' nu poate sa faca codul asta sa mearga
+point* pathFind(int entryX, int entryY, int exitX, int exitY)
+{
 
+    point* toVisit;
+    toVisit=NULL;
+    pointAdd(entryX,entryY,&toVisit);
+
+    int distance[table.width][table.height];
+    for(int index_y=0; index_y<table.height; index_y++)
+        for(int index_x=0; index_x<table.width; index_x++)
+            distance[index_x][index_y]=-1;
+    distance[entryX][entryY]=0;
+
+    while(toVisit!=NULL and !pointSearch(exitX,exitY,toVisit))
+    {
+        int targetX=pointLast(toVisit)->x;
+        int targetY=pointLast(toVisit)->y;
+
+        pointDelete(toVisit,targetX,targetY);
+
+        if(table.gridVerify("floor",targetX+1,targetY))
+           if (distance[targetX+1][targetY]<0)
+        {
+            pointAdd(targetX+1,targetY,&toVisit);
+            distance[targetX+1][targetY]=distance[targetX][targetY]+1;
+        }
+        if(table.gridVerify("floor",targetX-1,targetY))
+           if (distance[targetX-1][targetY]<0)
+        {
+            pointAdd(targetX-1,targetY,&toVisit);
+            distance[targetX-1][targetY]=distance[targetX][targetY]+1;
+        }
+        if(table.gridVerify("floor",targetX,targetY+1))
+           if (distance[targetX][targetY+1]<0)
+        {
+            pointAdd(targetX,targetY+1,&toVisit);
+            distance[targetX][targetY+1]=distance[targetX][targetY]+1;
+        }
+        if(table.gridVerify("floor",targetX,targetY-1))
+           if(distance[targetX][targetY-1]<0)
+        {
+            pointAdd(targetX,targetY-1,&toVisit);
+            distance[targetX][targetY-1]=distance[targetX][targetY]+1;
+        }
+    }
+
+    for(int index_y=0; index_y<table.height; index_y++)
+        {
+            for(int index_x=0; index_x<table.width; index_x++)
+                if (distance[index_x][index_y]==-1)
+                    cout<<" ";
+                else
+                    cout<<distance[index_x][index_y];
+            cout<<endl;
+        }
+        cout<<endl;
+
+    pointDestroy(toVisit);
+
+    point* path;
+    path=NULL;
+
+    while(exitX!=entryX and exitY!=entryY)
+    {
+        pointAdd(exitY,exitX,&path);
+        if (distance[exitX+1][exitY]<distance[exitX][exitY] and distance[exitX+1][exitY]!=-1)
+            exitX++;
+        else if (distance[exitX-1][exitY]<distance[exitX][exitY] and distance[exitX-1][exitY]!=-1)
+            exitX--;
+        else if (distance[exitX][exitY+1]<distance[exitX][exitY] and distance[exitX][exitY+1]!=-1)
+            exitY++;
+        else if (distance[exitX][exitY-1]<distance[exitX][exitY] and distance[exitX][exitY-1]!=-1)
+            exitY--;
+    }
+
+    return path;
+}
+*/

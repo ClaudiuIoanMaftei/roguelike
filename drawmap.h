@@ -22,8 +22,6 @@
 
 #define TILE_SIZE 64
 
-
-
 sf::Sprite mapTile;
 
 sf::Texture tileFloor;
@@ -142,6 +140,8 @@ void drawMap()
 
     Window.clear(sf::Color(0, 0, 0));
 
+    //Draw Grid
+
     for (int index_y=0; index_y<viewSizeHeight; index_y++)
         for (int index_x=0; index_x<viewSizeWidth; index_x++)
             if(table.gridVerify("player",index_x+viewOffsetX,index_y+viewOffsetY))
@@ -157,7 +157,6 @@ void drawMap()
                 drawEnemy(enemySearchFace(enemies,index_x+viewOffsetX,index_y+viewOffsetY),index_x,index_y);
                 if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
                     drawTile("wall_up_half",index_x,index_y);
-                cout << enemySearchFace(enemies,index_x+viewOffsetX,index_y+viewOffsetY) << endl;
             }
             else if (table.gridVerify("floor",index_x+viewOffsetX,index_y+viewOffsetY))
             {

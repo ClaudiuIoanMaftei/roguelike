@@ -22,11 +22,11 @@
 
 void worldAntChange(int x, int y, int steps, int chance)
 {
-    string tile="floor";
+    //Automata that chances direction based on chance
     int initialChance=chance;
     for (int repeats=0; repeats<steps; repeats++)
     {
-        table.gridPlace(tile,x,y);
+        table.gridPlace("floor",x,y);
 
         int changeDirection=rand()%chance;
         if (changeDirection==0)
@@ -69,10 +69,10 @@ void worldGenerate()
 {
     srand(time(NULL));
 
-    string tile;
-    tile="wall";
-    table.gridClear(tile);
+    table.gridClear("wall");
     int table_size=(table.height+table.width)/2;
+
+    //Dig Rooms
 
     for (int repeats=0; repeats<table_size/5; repeats++)
     {
@@ -82,15 +82,17 @@ void worldGenerate()
         int room_height=rand()%room_size_min + table_size/10;
         int room_width=rand()%room_size_min + table_size/10;
 
-        tile="floor";
-        table.gridFill(tile, room_x, room_y, room_x+room_width, room_y+room_height);
+        table.gridFill("floor", room_x, room_y, room_x+room_width, room_y+room_height);
 
         worldAntChange(room_x+room_width/2, room_y+room_width/2, table_size*4, 1);
         worldAntChange(room_x+room_width/2, room_y+room_width/2, table_size*6, table_size/4);
     }
 
-    tile="wall";
-    table.gridRectangle(tile, 0, 0, table.width-1, table.height-1);
+    //Encase the grid
+
+    table.gridRectangle("wall", 0, 0, table.width-1, table.height-1);
+
+    //Create Player
 
     do
     {
@@ -104,6 +106,8 @@ void worldGenerate()
     player.x=table.entryX;
     player.y=table.entryY;
     table.gridPlace("player",player.x, player.y);
+
+    //Create Enemies
 
     for(int index=0; index<7; index++)
     {

@@ -12,6 +12,7 @@
 
 int main()
 {
+    //Initialize Level
     table.width=60;
     table.height=60;
     worldGenerate();
@@ -20,6 +21,14 @@ int main()
 
     textureLoad();
 
+    point* points;
+    points=NULL;
+    points= pathFind(player.x, player.y,table.exitX,table.exitY);
+    pointShow(points);
+
+
+
+    //Main Action
     while(Window.isOpen())
     {
         player.directionMove=NONE;
@@ -60,7 +69,7 @@ int main()
 
             }
         }
-
+        //Move
         if (player.directionMove!=NONE)
                 player.movement();
         //Draw Map
