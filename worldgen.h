@@ -15,6 +15,11 @@
 #include "pathfinding.h"
 #endif
 
+#ifndef included_enemy
+#define included_enemy
+#include "enemy.h"
+#endif
+
 void worldAntChange(int x, int y, int steps, int chance)
 {
     string tile="floor";
@@ -99,4 +104,18 @@ void worldGenerate()
     player.x=table.entryX;
     player.y=table.entryY;
     table.gridPlace("player",player.x, player.y);
+
+    for(int index=0; index<7; index++)
+    {
+        int enemyX;
+        int enemyY;
+        do
+        {
+            enemyX=rand()%table.width;
+            enemyY=rand()%table.height;
+        }while(!table.gridVerify("floor",enemyX,enemyY));
+
+        enemyAdd(enemyX ,enemyY, 0, &enemies);
+        table.gridPlace("enemy",enemyX, enemyY);
+    }
 }

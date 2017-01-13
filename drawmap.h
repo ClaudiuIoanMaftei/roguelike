@@ -15,6 +15,11 @@
 #include "window.h"
 #endif
 
+#ifndef included_enemy
+#define included_enemy
+#include "enemy.h"
+#endif
+
 #define TILE_SIZE 64
 
 
@@ -29,6 +34,10 @@ sf::Texture tilePlayerUp;
 sf::Texture tilePlayerDown;
 sf::Texture tilePlayerRight;
 sf::Texture tilePlayerLeft;
+sf::Texture tileSkeletonUp;
+sf::Texture tileSkeletonDown;
+sf::Texture tileSkeletonRight;
+sf::Texture tileSkeletonLeft;
 sf::Texture tileExit;
 
 void textureLoad()
@@ -37,10 +46,17 @@ void textureLoad()
     tileWall.loadFromFile("sprites\\sprite_wall.png");
     tileWallUp.loadFromFile("sprites\\sprite_wall_up.png");
     tileWallUpHalf.loadFromFile("sprites\\sprite_wall_up_half.png");
+
     tilePlayerUp.loadFromFile("sprites\\sprite_player_up.png");
     tilePlayerDown.loadFromFile("sprites\\sprite_player.png");
     tilePlayerLeft.loadFromFile("sprites\\sprite_player_left.png");
     tilePlayerRight.loadFromFile("sprites\\sprite_player_right.png");
+
+    tileSkeletonUp.loadFromFile("sprites\\sprite_skeleton_up.png");
+    tileSkeletonDown.loadFromFile("sprites\\sprite_skeleton.png");
+    tileSkeletonLeft.loadFromFile("sprites\\sprite_skeleton_left.png");
+    tileSkeletonRight.loadFromFile("sprites\\sprite_skeleton_right.png");
+
     tileExit.loadFromFile("sprites\\sprite_exit.png");
 }
 
@@ -96,6 +112,27 @@ void drawPlayer(int x, int y)
     Window.draw(mapTile);
 }
 
+void drawEnemy(int face, int x, int y)
+{
+    switch(face)
+    {
+    case UP:
+        mapTile.setTexture(tileSkeletonUp, true);
+        break;
+    case DOWN:
+        mapTile.setTexture(tileSkeletonDown, true);
+        break;
+    case LEFT:
+        mapTile.setTexture(tileSkeletonLeft, true);
+        break;
+    case RIGHT:
+        mapTile.setTexture(tileSkeletonRight, true);
+        break;
+    }
+    mapTile.setPosition(x*TILE_SIZE-32, y*TILE_SIZE-64);
+    Window.draw(mapTile);
+}
+
 void drawMap()
 {
     int viewSizeWidth=WINDOW_WIDTH/TILE_SIZE;
@@ -113,6 +150,14 @@ void drawMap()
                 drawPlayer(index_x,index_y);
                 if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
                     drawTile("wall_up_half",index_x,index_y);
+            }
+            else if(table.gridVerify("enemy",index_x+viewOffsetX,index_y+viewOffsetY))
+            {
+                drawTile("floor",index_x,index_y);
+                drawEnemy(enemySearchFace(enemies,index_x+viewOffsetX,index_y+viewOffsetY),index_x,index_y);
+                if (table.gridVerify("wall",index_x+viewOffsetX,index_y+viewOffsetY+1))
+                    drawTile("wall_up_half",index_x,index_y);
+                cout << enemySearchFace(enemies,index_x+viewOffsetX,index_y+viewOffsetY) << endl;
             }
             else if (table.gridVerify("floor",index_x+viewOffsetX,index_y+viewOffsetY))
             {

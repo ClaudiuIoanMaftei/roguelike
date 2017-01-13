@@ -52,6 +52,7 @@
 		</Linker>
 		<Unit filename="dependencies.h" />
 		<Unit filename="drawmap.h" />
+		<Unit filename="enemy.h" />
 		<Unit filename="grid.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="pathfinding.h" />
